@@ -1,0 +1,13 @@
+Package: loco
+Title: Model-Free Variable Importance: LOCO
+Version: 0.0.0.9000
+Authors@R: 
+    person("Kwonsang", "Jung", , "kwons.jung@tamu.edu", role = c("aut", "cre"))
+Description: An efficient implementation of the Leave-One-Covariate-Out
+    (LOCO) framework, a model-free, prediction-based approach to variable
+    importance that measures how much predictive accuracy declines when
+    each covariate is removed from a fitted model.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
