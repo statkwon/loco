@@ -20,4 +20,16 @@ test_that("Tests for loco.R", {
 
   # Test if loco() returns an array of correct dimensions
   expect_identical(dim(loco(X, y, mean.fun, n.train)), c(p, n.train, 2))
+
+  # Test if compatibility checks work
+  expect_error(loco(X[1:500, ], y, mean.fun, n.train),
+               "Number of rows in X must match length of y.")
+  expect_error(
+    loco(X, y, mean.fun, n + 1),
+    "n.train must be between 1 and n-1, where n is the number of rows in X."
+  )
+  expect_error(
+    loco(X, y, mean.fun, 0),
+    "n.train must be between 1 and n-1, where n is the number of rows in X."
+  )
 })
