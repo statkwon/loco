@@ -9,6 +9,6 @@
 #' @return array of \eqn{p} matrices with conformal prediction intervals, \eqn{W_1, \ldots, W_p}, of size \eqn{n_\text{train}\times2}
 #' @export
 loco <- function(X, y, mean.fun, n.train) {
-  W = array(dim = c(p, n.train, 2))
+  W = loco_c(X, y, mean.fun, n.train)
   return(W)
 }
