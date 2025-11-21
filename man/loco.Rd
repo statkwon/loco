@@ -4,19 +4,20 @@
 \alias{loco}
 \title{Leave-One-Covariate-Out}
 \usage{
-loco(X, y, mean.fun, refitted.fun)
+loco(X, y, mean.fun, n.train)
 }
 \arguments{
 \item{X}{feature matrix \eqn{X} of dimension \eqn{n\times p}}
 
 \item{y}{target vector \eqn{Y} of length \eqn{n}}
 
-\item{mean.fun}{mean function \eqn{\hat{\mu}} fitted with \eqn{X} and \eqn{y}}
+\item{mean.fun}{mean function \eqn{\hat{\mu}}}
 
-\item{refitted.fun}{mean function \eqn{\hat{\mu}_{(-j)}} to refit with \eqn{X(-j)} and \eqn{y}}
+\item{n.train}{\eqn{n_\text{train}} rows of \eqn{X} are randomly chosen and used to fit \eqn{\hat{\mu}},
+another \eqn{n_\text{cal}=n-n_\text{train}} rows are used as a calibration set}
 }
 \value{
-prediction interval matrix \eqn{W} of size \eqn{n\times p}
+array of \eqn{p} matrices with conformal prediction intervals, \eqn{W_1, \ldots, W_p}, of size \eqn{n_\text{train}\times2}
 }
 \description{
 Leave-One-Covariate-Out
