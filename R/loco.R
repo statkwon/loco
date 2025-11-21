@@ -9,6 +9,14 @@
 #' @return array of \eqn{p} matrices with conformal prediction intervals, \eqn{W_1, \ldots, W_p}, of size \eqn{n_\text{train}\times2}
 #' @export
 loco <- function(X, y, mean.fun, n.train) {
+  # Compatibility checks
+  if (nrow(X) != length(y)) {
+    stop("Number of rows in X must match length of y.")
+  }
+  if (n.train >= nrow(X) || n.train <= 0) {
+    stop("n.train must be between 1 and n-1, where n is the number of rows in X.")
+  }
+
   W = loco_c(X, y, mean.fun, n.train)
   return(W)
 }
