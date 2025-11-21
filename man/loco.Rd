@@ -4,7 +4,7 @@
 \alias{loco}
 \title{Leave-One-Covariate-Out}
 \usage{
-loco(X, y, mean.fun, n.train)
+loco(X, y, mean.fun, predict.fun, n.train)
 }
 \arguments{
 \item{X}{feature matrix \eqn{X} of dimension \eqn{n\times p}}
@@ -12,6 +12,8 @@ loco(X, y, mean.fun, n.train)
 \item{y}{target vector \eqn{Y} of length \eqn{n}}
 
 \item{mean.fun}{mean function \eqn{\hat{\mu}}}
+
+\item{predict.fun}{prediction function associated to \eqn{\hat{\mu}}}
 
 \item{n.train}{\eqn{n_\text{train}} rows of \eqn{X} are randomly chosen and used to fit \eqn{\hat{\mu}},
 another \eqn{n_\text{cal}=n-n_\text{train}} rows are used as a calibration set}
