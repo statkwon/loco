@@ -17,7 +17,7 @@ loco(X, y, mean.fun, n.train)
 another \eqn{n_\text{cal}=n-n_\text{train}} rows are used as a calibration set}
 }
 \value{
-array of \eqn{p} matrices with conformal prediction intervals, \eqn{W_1, \ldots, W_p}, of size \eqn{n_\text{train}\times2}
+importance matrix \eqn{\Delta} of dimension \eqn{n_\text{cal}\times p}
 }
 \description{
 Leave-One-Covariate-Out

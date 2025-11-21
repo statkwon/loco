@@ -19,7 +19,7 @@ test_that("Tests for loco.R", {
   expect_no_error(loco(X, y, mean.fun, n.train))
 
   # Test if loco() returns an array of correct dimensions
-  expect_identical(dim(loco(X, y, mean.fun, n.train)), c(p, n.train, 2))
+  expect_equal(dim(loco(X, y, mean.fun, n.train)), c(n - n.train, p))
 
   # Test if compatibility checks work
   expect_error(loco(X[1:500, ], y, mean.fun, n.train),

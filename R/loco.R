@@ -6,7 +6,7 @@
 #' @param n.train \eqn{n_\text{train}} rows of \eqn{X} are randomly chosen and used to fit \eqn{\hat{\mu}},
 #' another \eqn{n_\text{cal}=n-n_\text{train}} rows are used as a calibration set
 #'
-#' @return array of \eqn{p} matrices with conformal prediction intervals, \eqn{W_1, \ldots, W_p}, of size \eqn{n_\text{train}\times2}
+#' @return importance matrix \eqn{\Delta} of dimension \eqn{n_\text{cal}\times p}
 #' @export
 loco <- function(X, y, mean.fun, n.train) {
   # Compatibility checks
@@ -17,6 +17,6 @@ loco <- function(X, y, mean.fun, n.train) {
     stop("n.train must be between 1 and n-1, where n is the number of rows in X.")
   }
 
-  W = loco_c(X, y, mean.fun, n.train)
-  return(W)
+  Delta = loco_c(X, y, mean.fun, n.train)
+  return(Delta)
 }

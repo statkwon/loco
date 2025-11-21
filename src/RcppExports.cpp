@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // loco_c
-arma::cube loco_c(const arma::mat& X, const arma::vec& y, Function mean_fun, int n_train);
+arma::mat loco_c(const arma::mat& X, const arma::vec& y, Function mean_fun, int n_train);
 RcppExport SEXP _loco_loco_c(SEXP XSEXP, SEXP ySEXP, SEXP mean_funSEXP, SEXP n_trainSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
