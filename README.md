@@ -11,3 +11,5 @@ devtools::install_github("statkwon/loco")
 - [ ] Implement R wrapper for the LOCO framework
 - [ ] Implement C++ backend for core LOCO computations
 - [ ] Add a 'How to Use' section to the README
+- [ ] Add references and citations for the LOCO framework
+- [ ] Write unit tests for the package functions
