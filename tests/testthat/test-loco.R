@@ -24,6 +24,7 @@ test_that("Tests for loco.R", {
 
   # Test if loco() returns an array of correct dimensions
   expect_equal(dim(loco(X, y, train.fun, predict.fun)$lb), dim(X))
+  expect_equal(dim(loco(X, y, train.fun, predict.fun)$ub), dim(X))
 
   # Test if compatibility checks work
   expect_error(loco(X[1:500, ], y, train.fun, predict.fun),
