@@ -9,7 +9,7 @@ test_that("Tests for loco.R", {
 
   y <- sin(pi * (1 + X[, 1])) * (X[, 1] < 0) + sin(pi * X[, 2]) + sin(pi * (1 + X[, 3])) * (X[, 3] > 0) + epsilon
 
-  mean.fun <- function(X, y) {
+  train.fun <- function(X, y) {
     df <- data.frame(y, X)
     return(lm(y ~ ., data = df))
   }
@@ -19,23 +19,13 @@ test_that("Tests for loco.R", {
     return(predict(model, newdata = df))
   }
 
-  n.train <- 700
-
   # Test if loco() runs without error
-  expect_no_error(loco(X, y, mean.fun, predict.fun, n.train))
+  expect_no_error(loco(X, y, train.fun, predict.fun))
 
   # Test if loco() returns an array of correct dimensions
-  expect_equal(dim(loco(X, y, mean.fun, predict.fun, n.train)), c(n - n.train, p))
+  expect_equal(dim(loco(X, y, train.fun, predict.fun)$lb), dim(X))
 
   # Test if compatibility checks work
-  expect_error(loco(X[1:500, ], y, mean.fun, predict.fun, n.train),
+  expect_error(loco(X[1:500, ], y, train.fun, predict.fun),
                "Number of rows in X must match length of y.")
-  expect_error(
-    loco(X, y, mean.fun, predict.fun, n + 1),
-    "n.train must be between 1 and n-1, where n is the number of rows in X."
-  )
-  expect_error(
-    loco(X, y, mean.fun, predict.fun, 0),
-    "n.train must be between 1 and n-1, where n is the number of rows in X."
-  )
 })

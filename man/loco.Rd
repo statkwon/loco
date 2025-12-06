@@ -4,22 +4,23 @@
 \alias{loco}
 \title{Leave-One-Covariate-Out}
 \usage{
-loco(X, y, mean.fun, predict.fun, n.train)
+loco(X, y, train.fun, predict.fun, alpha = 0.1, seed = NULL)
 }
 \arguments{
 \item{X}{feature matrix \eqn{X} of dimension \eqn{n\times p}}
 
 \item{y}{target vector \eqn{Y} of length \eqn{n}}
 
-\item{mean.fun}{mean function \eqn{\hat{\mu}}}
+\item{train.fun}{a function to perform model training}
 
-\item{predict.fun}{prediction function associated to \eqn{\hat{\mu}}}
+\item{predict.fun}{a function to perform prediction}
 
-\item{n.train}{\eqn{n_\text{train}} rows of \eqn{X} are randomly chosen and used to fit \eqn{\hat{\mu}},
-another \eqn{n_\text{cal}=n-n_\text{train}} rows are used as a calibration set}
+\item{alpha}{miscoverage level for the conformal prediction intervals (optional, default is 0.1)}
+
+\item{seed}{random seed for data splitting (optional)}
 }
 \value{
-importance matrix \eqn{\Delta} of dimension \eqn{n_\text{cal}\times p}
+importance matrix \eqn{\Delta} of dimension \eqn{n\times p}
 }
 \description{
 Leave-One-Covariate-Out

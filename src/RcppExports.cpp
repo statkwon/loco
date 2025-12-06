@@ -12,23 +12,24 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // loco_c
-arma::mat loco_c(const arma::mat& X, const arma::vec& y, Function mean_fun, Function predict_fun, int n_train);
-RcppExport SEXP _loco_loco_c(SEXP XSEXP, SEXP ySEXP, SEXP mean_funSEXP, SEXP predict_funSEXP, SEXP n_trainSEXP) {
+List loco_c(const arma::mat& X, const arma::vec& y, Function train_fun, Function predict_fun, double alpha, int seed);
+RcppExport SEXP _loco_loco_c(SEXP XSEXP, SEXP ySEXP, SEXP train_funSEXP, SEXP predict_funSEXP, SEXP alphaSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type y(ySEXP);
-    Rcpp::traits::input_parameter< Function >::type mean_fun(mean_funSEXP);
+    Rcpp::traits::input_parameter< Function >::type train_fun(train_funSEXP);
     Rcpp::traits::input_parameter< Function >::type predict_fun(predict_funSEXP);
-    Rcpp::traits::input_parameter< int >::type n_train(n_trainSEXP);
-    rcpp_result_gen = Rcpp::wrap(loco_c(X, y, mean_fun, predict_fun, n_train));
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(loco_c(X, y, train_fun, predict_fun, alpha, seed));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_loco_loco_c", (DL_FUNC) &_loco_loco_c, 5},
+    {"_loco_loco_c", (DL_FUNC) &_loco_loco_c, 6},
     {NULL, NULL, 0}
 };
 
