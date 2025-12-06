@@ -20,7 +20,8 @@ loco(X, y, train.fun, predict.fun, alpha = 0.1, seed = NULL)
 \item{seed}{random seed for data splitting (optional)}
 }
 \value{
-importance matrix \eqn{\Delta} of dimension \eqn{n\times p}
+conformal prediction intervals for
+\eqn{\Delta_j(X_{n+1}, Y_{n+1})=\vert Y_{n+1}-\hat{\mu}_{(-j)}(X_{n+1})\vert-\vert Y_{n+1}-\hat{\mu}(X_{n+1})\vert}
 }
 \description{
 Leave-One-Covariate-Out
