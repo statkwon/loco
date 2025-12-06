@@ -28,4 +28,6 @@ test_that("Tests for loco.R", {
   # Test if compatibility checks work
   expect_error(loco(X[1:500, ], y, train.fun, predict.fun),
                "Number of rows in X must match length of y.")
+  expect_error(loco(X, y, train.fun, predict.fun, alpha = -0.1),
+               "alpha must be between 0 and 1.")
 })

@@ -19,6 +19,9 @@ loco <- function(X,
   if (nrow(X) != length(y)) {
     stop("Number of rows in X must match length of y.")
   }
+  if (alpha <= 0 || alpha >= 1) {
+    stop("alpha must be between 0 and 1.")
+  }
 
   if (is.null(seed)) {
     seed = -1
