@@ -26,6 +26,7 @@ loco <- function(X,
   if (is.null(seed)) {
     seed = -1
   }
+
   out = loco_c(X, y, train.fun, predict.fun, alpha, seed)
 
   return(out)
