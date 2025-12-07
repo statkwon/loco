@@ -52,9 +52,9 @@ List loco_c(const arma::mat& X, const arma::vec& y, Function train_fun,
 
   auto roo = roo_split_cp(X, y, train_fun, predict_fun, alpha, I);
 
-  arma::vec y_pred = roo["y_pred"];
-  arma::vec lb_ = roo["lb"];
-  arma::vec ub_ = roo["ub"];
+  arma::vec y_pred_f = roo["y_pred"];
+  arma::vec lb_f = roo["lb"];
+  arma::vec ub_f = roo["ub"];
 
   arma::mat lb(n, p);
   arma::mat ub(n, p);
@@ -74,16 +74,17 @@ List loco_c(const arma::mat& X, const arma::vec& y, Function train_fun,
       auto model_j = train_fun(X_train_j, y_train);
       arma::vec y_pred_j = as<arma::vec>(predict_fun(model_j, X_cal_j));
 
-      arma::vec res = y_pred(I[1 - k]) - y_pred_j;
       for (int i = 0; i < I[1 - k].n_elem; i++) {
-        if (res[i] > 0) {
-          lb(I[1 - k][i], j) = ub(I[1 - k][i], j) =
-            std::clamp(ub_(I[1 - k][i]), y_pred_j(i), y_pred(I[1 - k][i]));
+        if (y_pred_f(I[1 - k][i]) >= y_pred_j[i]) {
+          lb(I[1 - k][i], j) =
+            lb_f(I[1 - k][i]) + (y_pred_f(I[1 - k][i]) - y_pred_j[i]);
+          ub(I[1 - k][i], j) =
+            ub_f(I[1 - k][i]) + (y_pred_f(I[1 - k][i]) - y_pred_j[i]);
         } else {
           lb(I[1 - k][i], j) =
-            -std::clamp(ub_(I[1 - k][i]), y_pred(I[1 - k][i]), y_pred_j(i));
-            ub(I[1 - k][i], j) =
-            -std::clamp(lb_(I[1 - k][i]), y_pred(I[1 - k][i]), y_pred_j(i));
+            lb_f(I[1 - k][i]) - (y_pred_j[i] - y_pred_f(I[1 - k][i]));
+          ub(I[1 - k][i], j) =
+            ub_f(I[1 - k][i]) - (y_pred_j[i] - y_pred_f(I[1 - k][i]));
         }
       }
     }
