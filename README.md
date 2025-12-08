@@ -8,8 +8,8 @@ devtools::install_github("statkwon/loco")
 ```
 
 # TODOs
-- [ ] Implement R wrapper for the LOCO framework
-- [ ] Implement C++ backend for core LOCO computations
+- [x] Implement R wrapper for the LOCO framework
+- [x] Implement C++ backend for core LOCO computations
 - [ ] Add a 'How to Use' section to the README
 - [ ] Add references and citations for the LOCO framework
-- [ ] Write unit tests for the package functions
+- [x] Write unit tests for the package functions
