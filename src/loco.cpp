@@ -13,21 +13,28 @@ List roo_split_cp(const arma::mat& X, const arma::vec& y, Function train_fun,
 
   for (int k = 0; k < 2; k++) {
     arma::mat X_train = X.rows(I[k]);
-    arma::vec y_train = y(I[k]);
     arma::mat X_cal = X.rows(I[1 - k]);
+    arma::vec y_train = y(I[k]);
     arma::vec y_cal = y(I[1 - k]);
 
+    // Train model with I[k] and compute residuals on I[1 - k]
     auto model = train_fun(X_train, y_train);
     y_pred(I[1 - k]) = as<arma::vec>(predict_fun(model, X_cal));
-    arma::vec res = arma::abs(y_cal - y_pred(I[1 - k]));
+    arma::vec res = y_cal - y_pred(I[1 - k]);
 
+    // Compute rank-one-out conformal prediction intervals
+    arma::uvec sorted_indices = arma::sort_index(res);
+    arma::uvec original_indices = arma::sort_index(sorted_indices);
+    arma::vec sorted_res = arma::sort(res);
     for (int i = 0; i < I[1 - k].n_elem; i++) {
-      arma::vec res_j = res;
-      res_j.shed_row(i);
-      arma::vec sorted_res_j = arma::sort(res_j);
-      double q = sorted_res_j(std::ceil(I[1 - k].n_elem * (1 - alpha)));
-      lb(I[1 - k][i]) = y_pred(I[1 - k][i]) - q;
-      ub(I[1 - k][i]) = y_pred(I[1 - k][i]) + q;
+      arma::vec sorted_res_i = sorted_res;
+      // Remove the i-th residual
+      sorted_res_i.shed_row(original_indices(i));
+      // Compute the quantile
+      double q = sorted_res_i(std::ceil(I[1 - k].n_elem * (1 - alpha)));
+      // Compute the prediction interval
+      lb(I[1 - k](i)) = y_pred(I[1 - k](i)) - q;
+      ub(I[1 - k](i)) = y_pred(I[1 - k](i)) + q;
     }
   }
 
