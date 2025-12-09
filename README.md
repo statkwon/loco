@@ -40,6 +40,7 @@ out <- loco(X, y, train.fun, predict.fun, alpha = 0.1)
 
 variable_importance_plot(X, y, out)
 ```
+You can find more detailed examples and documentation in the package vignettes.
 
 # TODOs
 - [x] Implement R wrapper for the LOCO framework
