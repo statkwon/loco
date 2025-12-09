@@ -4,6 +4,7 @@
 
 # Description
 `loco` provides an efficient implementation of the Leave-One-Covariate-Out (LOCO) framework, a model-free, prediction-based approach to variable importance that measures how much predictive accuracy declines when each covariate is removed from a fitted model.
+This package is based on the [original R package](https://github.com/ryantibs/conformal) and extends it by implementing the LOCO framework with a C++ backend for improved performance.
 
 # Instruction for Installation
 You can install the package using `devtools`.
