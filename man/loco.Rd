@@ -24,7 +24,9 @@ conformal prediction intervals for
 \eqn{\Delta_j(X_{n+1}, Y_{n+1})=\vert Y_{n+1}-\hat{\mu}_{(-j)}(X_{n+1})\vert-\vert Y_{n+1}-\hat{\mu}(X_{n+1})\vert}
 }
 \description{
-Leave-One-Covariate-Out
+This function implements the Leave-One-Covariate-Out (LOCO) conformal prediction intervals as described in Lei et al. (2018).
+The LOCO method provides distribution-free predictive inference for regression models by constructing prediction intervals that
+account for the uncertainty associated with leaving out each covariate in turn.
 }
 \examples{
 n <- 1000

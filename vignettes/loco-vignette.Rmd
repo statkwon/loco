@@ -1,0 +1,69 @@
+---
+title: "Model-Free Variable Importance: LOCO"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model-Free Variable Importance: LOCO}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(loco)
+```
+
+`loco()` provides a simple interface for computing model-free variable importance measures using the Leave-One-Covariate-Out (LOCO) approach. This vignette demonstrates how to use the `loco` package to assess the importance of covariates in a regression setting.
+
+## Theoretical Background
+For theoretical background, we will briefly summarize the LOCO method by citing the original paper:
+
+Denote by $\hat\mu$ our estimate of the mean function, fit on data $(X_i, Y_i)$, $i\in\mathcal{I}_1$ for some $\mathcal{I}_1\subseteq\{1, \ldots, n\}$. To investigate the importance of the $j$th covariate, we refit our estimate of the mean function on the dataset $(X_i(-j), Y_i), i\in\mathcal{I}_1$, where in each $X_i(-j)=(X_i(1), \ldots, X_i(j-1), X_i(j+1), \ldots, X_i(d))\in\mathbb{R}^{d-1}$, we have removed the $j$th covariate. Denote by $\hat{\mu}_{(-j)}$ this refitted mean function, and denote the excess prediction error of covariate $j$, at a new i.i.d. draw $(X_{n+1}, Y_{n+1})$, by
+$$\Delta_j(X_{n+1}, Y_{n+1})=\vert Y_{n+1}-\hat{\mu}_{(-j)}(X_{n+1})\vert-\vert Y_{n+1}-\hat{\mu}(X_{n+1})\vert.$$
+The random variable $\Delta_j(X_{n+1}, Y_{n+1})$ measures the increase in prediction error due to not having access to covariate $j$ in our dataset, and will be the basis for inferential statements about variable importance.
+
+Using conformal prediction bands, we can construct a valid prediction interval for the random variable $\Delta_j(X_{n+1}, Y_{n+1})$, as follows. Let $C$ denote a conformal prediction set for $Y_{n+1}$ given $X_{n+1}$, having coverage $1-\alpha$, constructed from either the full or split methods--the index set used for the fitting of $\hat{\mu}$ and $\hat{\mu}_{(-j)}$ is $\mathcal{I}_1\subsetneq\{1, \ldots, n\}$, a proper subset (its complement $\mathcal{I}_2$ is used for computing the appropriate sample quantile of residuals). Now define
+$$W_j(x)=\{\vert y-\hat{\mu}_{(-j)}(x)\vert-\vert y-\hat{\mu}(x)\vert:y\in C(x)\}.$$
+From the finite-sample validity of $C$, we immediately have
+$$\mathbb{P}(\Delta_j(X_{n+1}, Y_{n+1})\in W_j(X_{n+1}), \text{ for all }j=1, \ldots, d)\ge1-\alpha.$$
+
+## Simulated Data Example
+We will start by simulating some data for our example. We will create a dataset with 1000 observations and 6 covariates.
+```{r}
+n <- 1000
+p <- 6
+X <- replicate(p, runif(n, -1, 1))
+epsilon <- rnorm(n)
+y <- sin(pi * (1 + X[, 1])) * (X[, 1] < 0) + sin(pi * X[, 2]) + sin(pi * (1 + X[, 3])) * (X[, 3] > 0) + epsilon
+```
+
+Also, we need to specify two functions for fitting the model and making predictions.
+```{r}
+train.fun <- function(X, y) {
+  df <- data.frame(y, X)
+  return(lm(y ~ ., data = df))
+}
+
+predict.fun <- function(model, X) {
+  df <- data.frame(X)
+  return(predict(model, newdata = df))
+}
+```
+
+We can now use the `loco()` function to compute the variable importance measures for each covariate.
+```{r}
+out <- loco(X, y, train.fun, predict.fun)
+```
+
+The output of the `loco()` function is a list containing the prediction intervals for each covariate and the corresponding variable importance measures. We can visualize the results using the `variable_importance_plot()` function.
+```{r, fig.width=7, fig.height=5}
+variable_importance_plot(X, y, out)
+```
+
+## References
+- Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018). Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094-1111.
