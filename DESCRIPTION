@@ -1,6 +1,6 @@
 Package: loco
 Title: Model-Free Variable Importance: LOCO
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     person("Kwonsang", "Jung", , "kwons.jung@tamu.edu", role = c("aut", "cre"))
 Description: An efficient implementation of the Leave-One-Covariate-Out
