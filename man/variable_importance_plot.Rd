@@ -4,10 +4,12 @@
 \alias{variable_importance_plot}
 \title{Variable Importance Plot}
 \usage{
-variable_importance_plot(X, out)
+variable_importance_plot(X, y, out)
 }
 \arguments{
 \item{X}{feature matrix \eqn{X} of dimension \eqn{n\times p}}
+
+\item{y}{target vector \eqn{Y} of length \eqn{n}}
 
 \item{out}{output from the \code{loco} function}
 }

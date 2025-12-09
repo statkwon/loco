@@ -1,10 +1,23 @@
 #' Variable Importance Plot
 #'
 #' @param X feature matrix \eqn{X} of dimension \eqn{n\times p}
+#' @param y target vector \eqn{Y} of length \eqn{n}
 #' @param out output from the \code{loco} function
 #'
 #' @export
-variable_importance_plot <- function(X, out) {
+variable_importance_plot <- function(X, y, out) {
+  # Compatibility checks
+  if (nrow(X) != length(y)) {
+    stop("Number of rows in X must match length of y.")
+  }
+  if (!all(c("lb", "ub") %in% names(out))) {
+    stop("'out' must be a list containing both 'lb' and 'ub'.")
+  }
+  if (!all(dim(out$lb) == dim(X)) ||
+      !all(dim(out$ub) == dim(X))) {
+    stop("'lb' and 'ub' in 'out' must have the same dimensions as 'X'.")
+  }
+
   n <- nrow(X)
   p <- ncol(X)
 
