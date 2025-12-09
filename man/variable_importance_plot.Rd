@@ -14,5 +14,5 @@ variable_importance_plot(X, y, out)
 \item{out}{output from the \code{loco} function}
 }
 \description{
-Variable Importance Plot
+This function generates variable importance plots based on the output from the \code{loco} function.
 }

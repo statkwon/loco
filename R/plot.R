@@ -1,5 +1,7 @@
 #' Variable Importance Plot
 #'
+#' This function generates variable importance plots based on the output from the \code{loco} function.
+#'
 #' @param X feature matrix \eqn{X} of dimension \eqn{n\times p}
 #' @param y target vector \eqn{Y} of length \eqn{n}
 #' @param out output from the \code{loco} function
