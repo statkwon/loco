@@ -1,3 +1,7 @@
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/statkwon/loco/graph/badge.svg)](https://app.codecov.io/gh/statkwon/loco)
+<!-- badges: end -->
+
 # Description
 `loco` provides an efficient implementation of the Leave-One-Covariate-Out (LOCO) framework, a model-free, prediction-based approach to variable importance that measures how much predictive accuracy declines when each covariate is removed from a fitted model.
 
