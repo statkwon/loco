@@ -39,6 +39,6 @@ variable_importance_plot(X, y, out)
 # TODOs
 - [x] Implement R wrapper for the LOCO framework
 - [x] Implement C++ backend for core LOCO computations
-- [ ] Add a 'How to Use' section to the README
-- [ ] Add references and citations for the LOCO framework
+- [x] Add a 'How to Use' section to the README
+- [x] Add references and citations for the LOCO framework
 - [x] Write unit tests for the package functions
