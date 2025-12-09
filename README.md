@@ -9,7 +9,8 @@ This package is based on the [original R package](https://github.com/ryantibs/co
 # Instruction for Installation
 You can install the package using `devtools`.
 ``` r
-devtools::install_github("statkwon/loco")
+# install.packages("devtools") # if not already installed
+devtools::install_github("statkwon/loco", build_vignettes = TRUE)
 ```
 
 # How to Use
