@@ -1,0 +1,10 @@
+bibentry(
+  bibtype = "Article",
+  title = "Distribution-free predictive inference for regression",
+  author = "Lei, Jing and G’Sell, Max and Rinaldo, Alessandro and Tibshirani, Ryan J and Wasserman, Larry",
+  journal = "Journal of the American Statistical Association",
+  year = 2018,
+  volume = 113,
+  number = 523,
+  pages = "1094--1111"
+)
