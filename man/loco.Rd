@@ -26,3 +26,7 @@ conformal prediction intervals for
 \description{
 Leave-One-Covariate-Out
 }
+\references{
+Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018).
+Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094-1111.
+}

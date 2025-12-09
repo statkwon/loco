@@ -1,5 +1,8 @@
 #' Leave-One-Covariate-Out
 #'
+#' @references Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018).
+#' Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094-1111.
+#'
 #' @param X feature matrix \eqn{X} of dimension \eqn{n\times p}
 #' @param y target vector \eqn{Y} of length \eqn{n}
 #' @param train.fun a function to perform model training
