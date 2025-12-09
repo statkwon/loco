@@ -26,6 +26,26 @@ conformal prediction intervals for
 \description{
 Leave-One-Covariate-Out
 }
+\examples{
+n <- 1000
+p <- 6
+X <- replicate(p, runif(n, -1, 1))
+epsilon <- rnorm(n)
+y <- sin(pi * (1 + X[, 1])) * (X[, 1] < 0) + sin(pi * X[, 2]) + sin(pi * (1 + X[, 3])) * (X[, 3] > 0) + epsilon
+
+train.fun <- function(X, y) {
+  df <- data.frame(y, X)
+  return(lm(y ~ ., data = df))
+}
+
+predict.fun <- function(model, X) {
+  df <- data.frame(X)
+  return(predict(model, newdata = df))
+}
+
+out <- loco(X, y, train.fun, predict.fun, alpha = 0.1)
+
+}
 \references{
 Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018).
 Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094-1111.
